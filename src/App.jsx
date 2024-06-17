@@ -3,7 +3,7 @@ import "./App.css";
 import Navigation from "./Components/NavigationTemplate/Navigation";
 import Main from "./Main/Main";
 import { ThemeContext } from "./ThemeContext";
-
+// This is main file
 function App() {
   const [DarkTheme, setDarkTheme] = useState(true);
   return (

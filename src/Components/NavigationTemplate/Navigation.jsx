@@ -14,15 +14,21 @@ import { RiAccountCircleLine } from "react-icons/ri";
 import { BiMessageAltAdd, BiDotsHorizontalRounded } from "react-icons/bi";
 import { useContext, useState } from "react";
 import { ThemeContext } from "../../ThemeContext";
+import { useEffect } from "react";
 
 const Navigation = () => {
   const [nav, setnav] = useState(false);
+  const [username, setusername] = useState("");
 
   const { DarkTheme, setDarkTheme } = useContext(ThemeContext);
 
   function changeTheme() {
     setDarkTheme(!DarkTheme);
   }
+
+  useEffect(() => {
+    setusername(localStorage.getItem("username"));
+  }, []);
 
   return (
     <div className={`navigation ${nav && "active"} ${DarkTheme && "dark"}`}>
@@ -43,7 +49,7 @@ const Navigation = () => {
             className="profile-img"
           />
         </div>
-        <span>creative_ambition</span>
+        <span>{username}</span>
       </header>
 
       <Nav Icon={TbDashboard} title={"Dashboard"} />

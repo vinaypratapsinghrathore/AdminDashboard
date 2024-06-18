@@ -1,17 +1,39 @@
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect } from "react";
 import { useState } from "react";
 import "./App.css";
 import Navigation from "./Components/NavigationTemplate/Navigation";
+import { auth } from "./Firebase";
+import Login from "./Login/Login";
 import Main from "./Main/Main";
 import { ThemeContext } from "./ThemeContext";
-// This is main file
+
 function App() {
   const [DarkTheme, setDarkTheme] = useState(true);
+  const [LoggedIn, setLoggedIn] = useState(false);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+    });
+  }, []);
+
   return (
     <ThemeContext.Provider value={{ DarkTheme, setDarkTheme }}>
       <div className="App">
-        <Navigation />
+        {LoggedIn ? (
+          <>
+            <Navigation />
 
-        <Main />
+            <Main />
+          </>
+        ) : (
+          <Login />
+        )}
       </div>
     </ThemeContext.Provider>
   );

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./Content.css";
 import { ThemeContext } from "../ThemeContext";
 import { FiSettings } from "react-icons/fi";
@@ -32,6 +32,7 @@ import img from "../assets/illustration.png";
 import CircularProgress from "../Components/CircularProgress/CircularProgress";
 
 const Content = () => {
+  const [username, setusername] = useState("");
   const { DarkTheme } = useContext(ThemeContext);
 
   const [value_i] = useState(Math.floor(Math.random() * 100));
@@ -39,6 +40,10 @@ const Content = () => {
 
   const [value_ii] = useState(Math.floor(Math.random() * 100));
   const [value_ii_offset] = useState(315 - (value_ii / 100) * 315);
+
+  useEffect(() => {
+    setusername(localStorage.getItem("username"));
+  }, []);
 
   return (
     <div className={`content ${DarkTheme && "dark"}`}>
@@ -228,7 +233,7 @@ const Content = () => {
           </div>
 
           <div className="info">
-            <h2 className="admin-name">creative ambition</h2>
+            <h2 className="admin-name">{username}</h2>
             <span className="admin-about">Full-Stack & Content Creator</span>
           </div>
 
